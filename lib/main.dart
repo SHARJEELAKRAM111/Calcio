@@ -24,8 +24,8 @@ class CalcioApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Calcio',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.getLightTheme(const Color(0xFF00E5FF)),
+      darkTheme: AppTheme.getDarkTheme(const Color(0xFF00E5FF)),
       themeMode: storage.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: const MainView(),
     );

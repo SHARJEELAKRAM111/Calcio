@@ -14,6 +14,10 @@ class FunctionsView extends GetView<CalculatorController> {
     final bg = colorScheme.surface;
     final txtHigh = colorScheme.onSurface;
 
+    final isDark = theme.brightness == Brightness.dark;
+    final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
+    final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Functions'),
@@ -21,7 +25,7 @@ class FunctionsView extends GetView<CalculatorController> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            color: AppTheme.darkSurface,
+            color: keypadSurface,
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(32),
             ),
@@ -58,13 +62,13 @@ class FunctionsView extends GetView<CalculatorController> {
                     Expanded(
                       child: Column(
                         children: [
-                          Expanded(child: _buildRow(['sin', 'cos', 'tan'], bg, txtHigh)),
+                          Expanded(child: _buildRow(['sin', 'cos', 'tan'], operatorBg, txtHigh)),
                           const SizedBox(height: 12),
-                          Expanded(child: _buildRow(['ln', 'log', '√'], bg, txtHigh)),
+                          Expanded(child: _buildRow(['ln', 'log', '√'], operatorBg, txtHigh)),
                           const SizedBox(height: 12),
-                          Expanded(child: _buildRow(['π', 'e', '^'], bg, txtHigh)),
+                          Expanded(child: _buildRow(['π', 'e', '^'], operatorBg, txtHigh)),
                           const SizedBox(height: 12),
-                          Expanded(child: _buildRow(['!', '(', ')'], bg, txtHigh)),
+                          Expanded(child: _buildRow(['!', '(', ')'], operatorBg, txtHigh)),
                         ],
                       ),
                     ),

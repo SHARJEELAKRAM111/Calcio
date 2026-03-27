@@ -19,11 +19,11 @@ class AppTheme {
   static const Color textHighContrastLight = Color(0xFF131313);
   static const Color textMutedLight = Color(0xFF555555);
 
-  static ThemeData get darkTheme => ThemeData(
+  static ThemeData getDarkTheme(Color primaryColor) => ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: darkBackground,
-        colorScheme: const ColorScheme.dark(
-          primary: primaryCyan,
+        colorScheme: ColorScheme.dark(
+          primary: primaryColor,
           surface: darkSurface,
           onSurface: textHighContrast,
         ),
@@ -61,11 +61,11 @@ class AppTheme {
         ),
       );
 
-  static ThemeData get lightTheme => ThemeData(
+  static ThemeData getLightTheme(Color primaryColor) => ThemeData(
         brightness: Brightness.light,
         scaffoldBackgroundColor: lightBackground,
-        colorScheme: const ColorScheme.light(
-          primary: primaryCyan,
+        colorScheme: ColorScheme.light(
+          primary: primaryColor,
           surface: lightSurface,
           onSurface: textHighContrastLight,
         ),
@@ -88,7 +88,7 @@ class AppTheme {
           ),
           labelSmall: GoogleFonts.inter(
             fontSize: 11,
-            color: primaryCyan,
+            color: primaryColor,
           ),
         ),
         appBarTheme: AppBarTheme(

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:calcio/services/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:calcio/theme/app_theme.dart';
 
 class CalculatorController extends GetxController {
   var expression = ''.obs;
@@ -10,18 +11,58 @@ class CalculatorController extends GetxController {
   var history = <String>[].obs;
   var memory = 0.0.obs;
 
+  // Settings State
+  var precision = 12.obs;
+  var significantFigures = true.obs;
+  var accentColor = 'Cyan'.obs;
+
   final StorageService _storage = Get.find<StorageService>();
+
+  var isDarkMode = false.obs; // Added
+
+  void resetPreferences() {
+    precision.value = 12;
+    significantFigures.value = true;
+    accentColor.value = 'Cyan';
+    isRad.value = true;
+  }
 
   @override
   void onInit() {
     super.onInit();
+    isDarkMode.value = _storage.isDarkMode;
     history.assignAll(_storage.getHistory());
+    
+    // Defer the theme application so GetMaterialApp is ready
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _applyTheme();
+    });
   }
 
   void toggleTheme() {
-    bool isDark = Get.isDarkMode;
-    Get.changeThemeMode(isDark ? ThemeMode.light : ThemeMode.dark);
-    _storage.saveThemeMode(!isDark);
+    isDarkMode.value = !isDarkMode.value;
+    _storage.saveThemeMode(isDarkMode.value);
+    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
+    _applyTheme();
+  }
+
+  Color getPrimaryColor() {
+    switch (accentColor.value) {
+      case 'Pink': return const Color(0xFFFF2A85);
+      case 'Yellow': return const Color(0xFFFFD500);
+      default: return const Color(0xFF00E5FF); // Cyan
+    }
+  }
+
+  void updateAccentColor() {
+    _applyTheme();
+  }
+
+  void _applyTheme() {
+    ThemeData newTheme = isDarkMode.value 
+        ? AppTheme.getDarkTheme(getPrimaryColor()) 
+        : AppTheme.getLightTheme(getPrimaryColor());
+    Get.changeTheme(newTheme);
   }
 
   void onButtonPressed(String text) {

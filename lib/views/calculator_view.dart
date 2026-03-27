@@ -12,11 +12,13 @@ class CalculatorView extends GetView<CalculatorController> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final isDark = theme.brightness == Brightness.dark;
+
     // Extracted colors
-    final bg = colorScheme.surface;
     final txtHigh = colorScheme.onSurface;
     final primary = colorScheme.primary;
-    final operatorBg = AppTheme.operatorColor;
+    final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
+    final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,7 +70,7 @@ class CalculatorView extends GetView<CalculatorController> {
               flex: 6,
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppTheme.darkSurface,
+                  color: keypadSurface,
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(32),
                   ),
@@ -77,34 +79,56 @@ class CalculatorView extends GetView<CalculatorController> {
                 child: Column(
                   children: [
                     // Memory & Advanced Functions row
+                    // Memory & Advanced Functions row
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: ['MC', 'MR', 'M-', 'M+', 'DEL', 'AC'].map((e) {
-                        return GestureDetector(
-                          onTap: () => controller.onButtonPressed(e),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: e == 'AC' || e == 'DEL'
-                                  ? Colors.redAccent.withValues(alpha: 0.1)
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              e,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                color: e == 'AC' || e == 'DEL'
-                                    ? Colors.redAccent
-                                    : primary,
-                                fontSize: 14,
-                              ),
-                            ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Left side DEG/RAD indicator
+                        Obx(() => Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  controller.isRad.value ? 'RAD' : 'DEG',
+                                  style: theme.textTheme.titleSmall?.copyWith(
+                                    color: primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Container(
+                                  width: 4,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: primary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        // Right side Memory
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: ['MC', 'MR', 'M-', 'M+'].map((e) {
+                              return GestureDetector(
+                                onTap: () => controller.onButtonPressed(e),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 26.0),
+                                  child: Text(
+                                    e,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      color: txtHigh.withValues(alpha: 0.8),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                           ),
-                        );
-                      }).toList(),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 16),
 
@@ -114,7 +138,7 @@ class CalculatorView extends GetView<CalculatorController> {
                         children: [
                           Expanded(
                             flex: 3,
-                            child: _buildMainColumn(bg, txtHigh),
+                            child: _buildMainColumn(operatorBg, txtHigh),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -123,7 +147,6 @@ class CalculatorView extends GetView<CalculatorController> {
                               operatorBg,
                               txtHigh,
                               primary,
-                              bg,
                             ),
                           ),
                         ],
@@ -139,46 +162,45 @@ class CalculatorView extends GetView<CalculatorController> {
     );
   }
 
-  Widget _buildMainColumn(Color bg, Color txtHigh) {
+  Widget _buildMainColumn(Color btnBg, Color txtHigh) {
     return Column(
       children: [
-        Expanded(child: _buildRow(['sin', 'cos', 'tan'], bg, txtHigh)),
+        Expanded(child: _buildRow(['sin', 'cos', 'tan'], btnBg, txtHigh)),
         const SizedBox(height: 12),
-        Expanded(child: _buildRow(['ln', 'log', '√'], bg, txtHigh)),
+        Expanded(child: _buildRow(['log', 'ln', '√'], btnBg, txtHigh)),
         const SizedBox(height: 12),
-        Expanded(child: _buildRow(['7', '8', '9'], bg, txtHigh)),
+        Expanded(child: _buildRow(['7', '8', '9'], btnBg, txtHigh)),
         const SizedBox(height: 12),
-        Expanded(child: _buildRow(['4', '5', '6'], bg, txtHigh)),
+        Expanded(child: _buildRow(['4', '5', '6'], btnBg, txtHigh)),
         const SizedBox(height: 12),
-        Expanded(child: _buildRow(['1', '2', '3'], bg, txtHigh)),
+        Expanded(child: _buildRow(['1', '2', '3'], btnBg, txtHigh)),
         const SizedBox(height: 12),
-        Expanded(child: _buildRow(['%', '0', '.'], bg, txtHigh)),
+        Expanded(child: _buildRow(['DEL', '0', '.'], btnBg, txtHigh)),
       ],
     );
   }
 
   Widget _buildRightColumn(
-    Color operatorBg,
+    Color btnBg,
     Color txtHigh,
     Color primary,
-    Color bg,
   ) {
     return Column(
       children: [
         Expanded(
           child: CalcButton(
-            text: 'x²',
-            backgroundColor: bg,
+            text: 'AC',
+            backgroundColor: btnBg,
             textColor: txtHigh,
-            onTap: () => controller.onButtonPressed('x²'),
+            onTap: () => controller.onButtonPressed('AC'),
           ),
         ),
         const SizedBox(height: 12),
         Expanded(
           child: CalcButton(
             text: '÷',
-            backgroundColor: operatorBg,
-            textColor: txtHigh,
+            backgroundColor: btnBg,
+            textColor: primary,
             onTap: () => controller.onButtonPressed('÷'),
           ),
         ),
@@ -186,8 +208,8 @@ class CalculatorView extends GetView<CalculatorController> {
         Expanded(
           child: CalcButton(
             text: '×',
-            backgroundColor: operatorBg,
-            textColor: txtHigh,
+            backgroundColor: btnBg,
+            textColor: primary,
             onTap: () => controller.onButtonPressed('×'),
           ),
         ),
@@ -195,8 +217,8 @@ class CalculatorView extends GetView<CalculatorController> {
         Expanded(
           child: CalcButton(
             text: '−',
-            backgroundColor: operatorBg,
-            textColor: txtHigh,
+            backgroundColor: btnBg,
+            textColor: primary,
             onTap: () => controller.onButtonPressed('−'),
           ),
         ),
@@ -204,8 +226,8 @@ class CalculatorView extends GetView<CalculatorController> {
         Expanded(
           child: CalcButton(
             text: '+',
-            backgroundColor: operatorBg,
-            textColor: txtHigh,
+            backgroundColor: btnBg,
+            textColor: primary,
             onTap: () => controller.onButtonPressed('+'),
           ),
         ),
