@@ -111,6 +111,14 @@ class CalculatorController extends GetxController {
       case 'log':
       case 'ln':
       case '√':
+      case 'csc':
+      case 'hyp':
+      case 'sin⁻¹':
+      case 'cos⁻¹':
+      case 'tan⁻¹':
+      case '∫':
+      case 'd/dx':
+      case 'lim':
         expression.value += '$text(';
         break;
       case 'x²':
@@ -132,6 +140,19 @@ class CalculatorController extends GetxController {
         expression.value += 'e';
         calculateResult(real: false);
         break;
+      case 'φ':
+        expression.value += 'φ';
+        calculateResult(real: false);
+        break;
+      case 'x':
+      case 'y':
+      case 'z':
+      case 'a':
+      case 'b':
+      case 'c':
+        expression.value += text;
+        calculateResult(real: false);
+        break;
       default:
         expression.value += text;
         calculateResult(real: false);
@@ -148,6 +169,10 @@ class CalculatorController extends GetxController {
       String expStr = expression.value;
       expStr = expStr.replaceAll('√', 'sqrt');
       expStr = expStr.replaceAll('π', 'pi');
+      expStr = expStr.replaceAll('φ', '1.6180339887');
+      expStr = expStr.replaceAll('sin⁻¹', 'arcsin');
+      expStr = expStr.replaceAll('cos⁻¹', 'arccos');
+      expStr = expStr.replaceAll('tan⁻¹', 'arctan');
       expStr = expStr.replaceAll('×', '*');
       expStr = expStr.replaceAll('÷', '/');
       expStr = expStr.replaceAll('−', '-');
