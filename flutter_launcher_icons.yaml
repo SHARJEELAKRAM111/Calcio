@@ -1,0 +1,28 @@
+flutter_launcher_icons:
+  # Android configuration
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  
+  # Remove the alpha channel for Android (required)
+  remove_alpha_ios: true
+  
+  # Adaptive icon for Android 8.0+ (API 26+)
+  adaptive_icon_background: "#131313"
+  adaptive_icon_foreground: "assets/icons/app_icon.png"
+  
+  # Minimum SDK for Android adaptive icons
+  min_sdk_android: 21
+  
+  # Web configuration
+  web:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+    background_color: "#131313"
+    theme_color: "#00E5FF"
+  
+  # Windows configuration
+  windows:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+    icon_size: 48

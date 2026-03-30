@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:calcio/controllers/calculator_controller.dart';
 import 'package:calcio/widgets/calc_button.dart';
 import 'package:calcio/theme/app_theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CalculatorView extends GetView<CalculatorController> {
   const CalculatorView({super.key});
@@ -17,12 +18,22 @@ class CalculatorView extends GetView<CalculatorController> {
     // Extracted colors
     final txtHigh = colorScheme.onSurface;
     final primary = colorScheme.primary;
-    final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
+    final operatorBg = isDark
+        ? AppTheme.operatorColor
+        : AppTheme.lightSurfaceHigh;
     final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calcio'),
+        title: Text(
+          'CALCIO',
+          style: GoogleFonts.spaceGrotesk(
+            color: primary,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.5,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Column(
@@ -85,27 +96,29 @@ class CalculatorView extends GetView<CalculatorController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Left side DEG/RAD indicator
-                        Obx(() => Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  controller.isRad.value ? 'RAD' : 'DEG',
-                                  style: theme.textTheme.titleSmall?.copyWith(
-                                    color: primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                controller.isRad.value ? 'RAD' : 'DEG',
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  color: primary,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                const SizedBox(height: 4),
-                                Container(
-                                  width: 4,
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    color: primary,
-                                    shape: BoxShape.circle,
-                                  ),
+                              ),
+                              const SizedBox(height: 4),
+                              Container(
+                                width: 4,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  color: primary,
+                                  shape: BoxShape.circle,
                                 ),
-                              ],
-                            )),
+                              ),
+                            ],
+                          ),
+                        ),
                         // Right side Memory
                         Padding(
                           padding: const EdgeInsets.only(top: 2),
@@ -118,10 +131,11 @@ class CalculatorView extends GetView<CalculatorController> {
                                   padding: const EdgeInsets.only(left: 26.0),
                                   child: Text(
                                     e,
-                                    style: theme.textTheme.titleMedium?.copyWith(
-                                      color: txtHigh.withValues(alpha: 0.8),
-                                      fontSize: 16,
-                                    ),
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                          color: txtHigh.withValues(alpha: 0.8),
+                                          fontSize: 16,
+                                        ),
                                   ),
                                 ),
                               );
@@ -180,11 +194,7 @@ class CalculatorView extends GetView<CalculatorController> {
     );
   }
 
-  Widget _buildRightColumn(
-    Color btnBg,
-    Color txtHigh,
-    Color primary,
-  ) {
+  Widget _buildRightColumn(Color btnBg, Color txtHigh, Color primary) {
     return Column(
       children: [
         Expanded(

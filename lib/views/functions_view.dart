@@ -14,16 +14,14 @@ class FunctionsView extends GetView<CalculatorController> {
     final txtHigh = colorScheme.onSurface;
 
     final isDark = theme.brightness == Brightness.dark;
-    final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
+    final operatorBg = isDark
+        ? AppTheme.operatorColor
+        : AppTheme.lightSurfaceHigh;
     final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
     final primary = colorScheme.primary;
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
         title: Text(
           'CALCIO',
           style: GoogleFonts.spaceGrotesk(
@@ -33,12 +31,6 @@ class FunctionsView extends GetView<CalculatorController> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -53,51 +45,56 @@ class FunctionsView extends GetView<CalculatorController> {
                     TextSpan(
                       text: 'Functions ',
                       style: theme.textTheme.headlineMedium?.copyWith(
-                            color: txtHigh,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: txtHigh,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     TextSpan(
                       text: 'Library',
                       style: theme.textTheme.headlineMedium?.copyWith(
-                            color: primary,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: primary,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
 
-              // Search Field
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search operations, constants, or variables...',
-                  hintStyle: GoogleFonts.inter(
-                    color: txtHigh.withValues(alpha: 0.5),
-                    fontSize: 14,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: txtHigh.withValues(alpha: 0.5),
-                  ),
-                  filled: true,
-                  fillColor: keypadSurface,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                ),
-              ),
-              const SizedBox(height: 32),
+              // // Search Field
+              // TextField(
+              //   decoration: InputDecoration(
+              //     hintText: 'Search operations, constants, or variables...',
+              //     hintStyle: GoogleFonts.inter(
+              //       color: txtHigh.withValues(alpha: 0.5),
+              //       fontSize: 14,
+              //     ),
+              //     prefixIcon: Icon(
+              //       Icons.search,
+              //       color: txtHigh.withValues(alpha: 0.5),
+              //     ),
+              //     filled: true,
+              //     fillColor: keypadSurface,
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(12),
+              //       borderSide: BorderSide.none,
+              //     ),
+              //     contentPadding: const EdgeInsets.symmetric(vertical: 0),
+              //   ),
+              // ),
+              // const SizedBox(height: 32),
 
               // Trigonometry Section
               _buildSectionContainer(
                 keypadSurface,
                 Column(
                   children: [
-                    _buildSectionHeader(Icons.change_history, 'Trigonometry', primary, txtHigh),
+                    _buildSectionHeader(
+                      Icons.change_history,
+                      'Trigonometry',
+                      primary,
+                      txtHigh,
+                    ),
                     GridView.count(
                       crossAxisCount: 2,
                       childAspectRatio: 2.2,
@@ -110,9 +107,24 @@ class FunctionsView extends GetView<CalculatorController> {
                         _buildGridButton('cos', 'COSINE', operatorBg, txtHigh),
                         _buildGridButton('tan', 'TANGENT', operatorBg, txtHigh),
                         _buildGridButton('csc', 'COSEC', operatorBg, txtHigh),
-                        _buildGridButton('sin⁻¹', 'ARCSIN', operatorBg, txtHigh),
-                        _buildGridButton('cos⁻¹', 'ARCCOS', operatorBg, txtHigh),
-                        _buildGridButton('tan⁻¹', 'ARCTAN', operatorBg, txtHigh),
+                        _buildGridButton(
+                          'sin⁻¹',
+                          'ARCSIN',
+                          operatorBg,
+                          txtHigh,
+                        ),
+                        _buildGridButton(
+                          'cos⁻¹',
+                          'ARCCOS',
+                          operatorBg,
+                          txtHigh,
+                        ),
+                        _buildGridButton(
+                          'tan⁻¹',
+                          'ARCTAN',
+                          operatorBg,
+                          txtHigh,
+                        ),
                         _buildGridButton('hyp', 'HYPER', operatorBg, txtHigh),
                       ],
                     ),
@@ -125,10 +137,39 @@ class FunctionsView extends GetView<CalculatorController> {
                 keypadSurface,
                 Column(
                   children: [
-                    _buildSectionHeader(Icons.functions, 'Calculus', primary, txtHigh),
-                    _buildListButton('∫', 'Integral', 'DEFINITE/INDEFINITE', operatorBg, txtHigh, primary, '∫'),
-                    _buildListButton('d/dx', 'Derivative', 'N-TH ORDER', operatorBg, txtHigh, primary, 'd/dx'),
-                    _buildListButton('lim', 'Limit', 'ASYMPTOTIC', operatorBg, txtHigh, primary, 'lim'),
+                    _buildSectionHeader(
+                      Icons.functions,
+                      'Calculus',
+                      primary,
+                      txtHigh,
+                    ),
+                    _buildListButton(
+                      '∫',
+                      'Integral',
+                      'DEFINITE/INDEFINITE',
+                      operatorBg,
+                      txtHigh,
+                      primary,
+                      '∫',
+                    ),
+                    _buildListButton(
+                      'd/dx',
+                      'Derivative',
+                      'N-TH ORDER',
+                      operatorBg,
+                      txtHigh,
+                      primary,
+                      'd/dx',
+                    ),
+                    _buildListButton(
+                      'lim',
+                      'Limit',
+                      'ASYMPTOTIC',
+                      operatorBg,
+                      txtHigh,
+                      primary,
+                      'lim',
+                    ),
                   ],
                 ),
               ),
@@ -138,7 +179,12 @@ class FunctionsView extends GetView<CalculatorController> {
                 keypadSurface,
                 Column(
                   children: [
-                    _buildSectionHeader(Icons.remove, 'Variables', primary, txtHigh),
+                    _buildSectionHeader(
+                      Icons.remove,
+                      'Variables',
+                      primary,
+                      txtHigh,
+                    ),
                     GridView.count(
                       crossAxisCount: 3,
                       childAspectRatio: 1.2,
@@ -147,12 +193,48 @@ class FunctionsView extends GetView<CalculatorController> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _buildGridButton('x', '', operatorBg, txtHigh, isItalic: true),
-                        _buildGridButton('y', '', operatorBg, txtHigh, isItalic: true),
-                        _buildGridButton('z', '', operatorBg, txtHigh, isItalic: true),
-                        _buildGridButton('a', '', operatorBg, txtHigh, isItalic: true),
-                        _buildGridButton('b', '', operatorBg, txtHigh, isItalic: true),
-                        _buildGridButton('c', '', operatorBg, txtHigh, isItalic: true),
+                        _buildGridButton(
+                          'x',
+                          '',
+                          operatorBg,
+                          txtHigh,
+                          isItalic: true,
+                        ),
+                        _buildGridButton(
+                          'y',
+                          '',
+                          operatorBg,
+                          txtHigh,
+                          isItalic: true,
+                        ),
+                        _buildGridButton(
+                          'z',
+                          '',
+                          operatorBg,
+                          txtHigh,
+                          isItalic: true,
+                        ),
+                        _buildGridButton(
+                          'a',
+                          '',
+                          operatorBg,
+                          txtHigh,
+                          isItalic: true,
+                        ),
+                        _buildGridButton(
+                          'b',
+                          '',
+                          operatorBg,
+                          txtHigh,
+                          isItalic: true,
+                        ),
+                        _buildGridButton(
+                          'c',
+                          '',
+                          operatorBg,
+                          txtHigh,
+                          isItalic: true,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -186,10 +268,42 @@ class FunctionsView extends GetView<CalculatorController> {
                 keypadSurface,
                 Column(
                   children: [
-                    _buildSectionHeader(Icons.ac_unit, 'Universal Constants', primary, txtHigh),
-                    _buildListButton('π', 'Pi', '3.14159265...', operatorBg, txtHigh, primary, 'π', showInfo: true),
-                    _buildListButton('e', 'Euler\'s', '2.71828182...', operatorBg, txtHigh, primary, 'e', showInfo: true),
-                    _buildListButton('φ', 'Golden Ratio', '1.61803398...', operatorBg, txtHigh, primary, 'φ', showInfo: true),
+                    _buildSectionHeader(
+                      Icons.ac_unit,
+                      'Universal Constants',
+                      primary,
+                      txtHigh,
+                    ),
+                    _buildListButton(
+                      'π',
+                      'Pi',
+                      '3.14159265...',
+                      operatorBg,
+                      txtHigh,
+                      primary,
+                      'π',
+                      showInfo: true,
+                    ),
+                    _buildListButton(
+                      'e',
+                      'Euler\'s',
+                      '2.71828182...',
+                      operatorBg,
+                      txtHigh,
+                      primary,
+                      'e',
+                      showInfo: true,
+                    ),
+                    _buildListButton(
+                      'φ',
+                      'Golden Ratio',
+                      '1.61803398...',
+                      operatorBg,
+                      txtHigh,
+                      primary,
+                      'φ',
+                      showInfo: true,
+                    ),
                   ],
                 ),
               ),
@@ -200,7 +314,12 @@ class FunctionsView extends GetView<CalculatorController> {
     );
   }
 
-  Widget _buildSectionHeader(IconData icon, String title, Color primary, Color txtHigh) {
+  Widget _buildSectionHeader(
+    IconData icon,
+    String title,
+    Color primary,
+    Color txtHigh,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -291,7 +410,7 @@ class FunctionsView extends GetView<CalculatorController> {
   }) {
     return GestureDetector(
       onTap: () {
-         controller.onButtonPressed(command);
+        controller.onButtonPressed(command);
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
@@ -339,7 +458,8 @@ class FunctionsView extends GetView<CalculatorController> {
                     ),
                   ],
                 ),
-                if (showInfo) const SizedBox(width: 24), // Space matching info icon
+                if (showInfo)
+                  const SizedBox(width: 24), // Space matching info icon
               ],
             ),
             if (showInfo)

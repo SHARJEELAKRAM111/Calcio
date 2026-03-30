@@ -1,0 +1,28 @@
+flutter_native_splash:
+  # Background color matching app dark theme
+  color: "#131313"
+  
+  # Dark mode version (same since our app is dark-first)
+  color_dark: "#131313"
+  
+  # App icon on splash
+  image: assets/icons/app_icon.png
+  image_dark: assets/icons/app_icon.png
+  
+  # Branding image at bottom (optional)
+  #branding: assets/icons/app_icon.png
+  
+  # Icon size ratio for Android 12+
+  android_12:
+    color: "#131313"
+    color_dark: "#131313"
+    image: assets/icons/app_icon.png
+    image_dark: assets/icons/app_icon.png
+  
+  # Supported platforms
+  android: true
+  ios: true
+  web: true
+  
+  # Web configuration
+  web_image_mode: center
