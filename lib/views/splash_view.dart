@@ -134,9 +134,10 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 6000),
     );
 
-    _ringRotation = Tween<double>(begin: 0.0, end: 2 * math.pi).animate(
-      CurvedAnimation(parent: _ringController, curve: Curves.linear),
-    );
+    _ringRotation = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi,
+    ).animate(CurvedAnimation(parent: _ringController, curve: Curves.linear));
 
     _ringOpacity = Tween<double>(begin: 0.0, end: 0.4).animate(
       CurvedAnimation(
@@ -228,7 +229,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                   ),
 
                   // Bottom version text
-                  _buildVersionLabel(),
+                  // _buildVersionLabel(),
                 ],
               ),
             ),
@@ -246,9 +247,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
             center: Alignment.center,
             radius: 0.8,
             colors: [
-              const Color(0xFF00E5FF).withValues(
-                alpha: 0.03 * _glowIntensity.value,
-              ),
+              const Color(
+                0xFF00E5FF,
+              ).withValues(alpha: 0.03 * _glowIntensity.value),
               const Color(0xFF131313),
             ],
           ),
@@ -339,9 +340,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(28),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF00E5FF).withValues(
-                        alpha: 0.3 * _glowIntensity.value,
-                      ),
+                      color: const Color(
+                        0xFF00E5FF,
+                      ).withValues(alpha: 0.3 * _glowIntensity.value),
                       blurRadius: 40 * _glowIntensity.value,
                       spreadRadius: 5 * _glowIntensity.value,
                     ),
@@ -395,25 +396,25 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildVersionLabel() {
-    return Positioned(
-      bottom: 48,
-      left: 0,
-      right: 0,
-      child: Opacity(
-        opacity: _subtitleOpacity.value * 0.5,
-        child: Text(
-          'v2.4.0',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            fontSize: 11,
-            color: Colors.white.withValues(alpha: 0.3),
-            letterSpacing: 2.0,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _buildVersionLabel() {
+  //   return Positioned(
+  //     bottom: 48,
+  //     left: 0,
+  //     right: 0,
+  //     child: Opacity(
+  //       opacity: _subtitleOpacity.value * 0.5,
+  //       child: Text(
+  //         'v2.4.0',
+  //         textAlign: TextAlign.center,
+  //         style: GoogleFonts.inter(
+  //           fontSize: 11,
+  //           color: Colors.white.withValues(alpha: 0.3),
+  //           letterSpacing: 2.0,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }
 
 // === Custom Painters ===
