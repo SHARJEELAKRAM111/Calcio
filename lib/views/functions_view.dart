@@ -10,14 +10,18 @@ class FunctionsView extends GetView<CalculatorController> {
 
   @override
   Widget build(BuildContext context) {
+        final isDark = controller.isDarkMode.value;
+      final primary = controller.getPrimaryColor();
+      final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
+    
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final txtHigh = colorScheme.onSurface;
-    final isDark = theme.brightness == Brightness.dark;
+    // final isDark = theme.brightness == Brightness.dark;
     final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
     final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
-    final primary = colorScheme.primary;
-    final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
+    // final primary = colorScheme.primary;
+    // final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
 
     return Scaffold(
       backgroundColor: bg,

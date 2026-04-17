@@ -8,11 +8,18 @@ class StorageService {
 
   static const _themeKey = 'isDarkMode';
   static const _historyKey = 'calculator_history';
+  static const _accentColorKey = 'accentColor';
 
   bool get isDarkMode => _prefs.getBool(_themeKey) ?? true;
 
   Future<void> saveThemeMode(bool isDark) async {
     await _prefs.setBool(_themeKey, isDark);
+  }
+
+  String get accentColor => _prefs.getString(_accentColorKey) ?? 'Cyan';
+
+  Future<void> saveAccentColor(String color) async {
+    await _prefs.setString(_accentColorKey, color);
   }
 
   List<String> getHistory() {

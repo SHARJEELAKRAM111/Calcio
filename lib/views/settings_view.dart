@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:calcio/controllers/calculator_controller.dart';
+import 'package:calcio/controllers/main_controller.dart';
 import 'package:calcio/theme/app_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -155,50 +156,7 @@ class SettingsView extends GetView<CalculatorController> {
                         ],
                       ),
                     ),
-
-                    const SizedBox(height: 28),
-
-                    // ABOUT SECTION
-                    _buildSectionHeader(
-                      Icons.info_outline_rounded,
-                      'ABOUT',
-                      primary,
-                      textGrey,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildCard(
-                      cardBg,
-                      isDark,
-                      Column(
-                        children: [
-                          _buildAboutRow(
-                            Icons.code_rounded,
-                            'Version',
-                            'v2.4.0-obsidian',
-                            textMain,
-                            textGrey,
-                            primary,
-                            isDark,
-                          ),
-                          _buildDivider(isDark),
-                          _buildAboutRow(
-                            Icons.shield_outlined,
-                            'Privacy Policy',
-                            'Data usage and security',
-                            textMain,
-                            textGrey,
-                            primary,
-                            isDark,
-                            trailing: Icon(
-                              Icons.open_in_new_rounded,
-                              color: textMain.withValues(alpha: 0.3),
-                              size: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
+               
                     const SizedBox(height: 40),
 
                     // RESET BUTTON
@@ -608,7 +566,11 @@ class SettingsView extends GetView<CalculatorController> {
                   isDark,
                   () {
                     HapticFeedback.selectionClick();
-                    if (isDark) controller.toggleTheme();
+                    if (isDark) {
+                      controller.toggleTheme();
+                      final mainController = Get.find<MainController>();
+                      mainController.isDarkMode.value = false;
+                    }
                   },
                 ),
                 const SizedBox(width: 2),
@@ -619,7 +581,11 @@ class SettingsView extends GetView<CalculatorController> {
                   isDark,
                   () {
                     HapticFeedback.selectionClick();
-                    if (!isDark) controller.toggleTheme();
+                    if (!isDark) {
+                      controller.toggleTheme();
+                      final mainController = Get.find<MainController>();
+                      mainController.isDarkMode.value = true;
+                    }
                   },
                 ),
               ],
@@ -713,6 +679,8 @@ class SettingsView extends GetView<CalculatorController> {
                     onTap: () {
                       HapticFeedback.selectionClick();
                       controller.accentColor.value = c['name'] as String;
+                      final mainController = Get.find<MainController>();
+                      mainController.accentColor.value = c['name'] as String;
                       controller.updateAccentColor();
                     },
                     child: AnimatedContainer(
@@ -788,60 +756,4 @@ class SettingsView extends GetView<CalculatorController> {
     );
   }
 
-  Widget _buildAboutRow(
-    IconData icon,
-    String title,
-    String subtitle,
-    Color textMain,
-    Color textGrey,
-    Color primary,
-    bool isDark, {
-    Widget? trailing,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: primary.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: primary, size: 18),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.inter(
-                    fontSize: 15,
-                    color: textMain,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: GoogleFonts.inter(
-                    fontSize: 13,
-                    color: textGrey.withValues(alpha: 0.6),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          trailing ??
-              Icon(
-                Icons.chevron_right_rounded,
-                color: textMain.withValues(alpha: 0.2),
-                size: 22,
-              ),
-        ],
-      ),
-    );
-  }
 }

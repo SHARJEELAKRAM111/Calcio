@@ -12,10 +12,7 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(MainController());
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final primary = theme.colorScheme.primary;
+     final controller = Get.put(MainController());
 
     final List<Widget> pages = [
       const CalculatorView(),
@@ -51,6 +48,8 @@ class MainView extends StatelessWidget {
       ),
       bottomNavigationBar: Obx(() {
         final selected = controller.currentIndex.value;
+        final isDark = controller.isDarkMode.value;
+        final primary = controller.getPrimaryColor();
         return Container(
           decoration: BoxDecoration(
             color: isDark ? const Color(0xFF1A1A1A) : Colors.white,

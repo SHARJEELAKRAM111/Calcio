@@ -11,13 +11,17 @@ class HistoryView extends GetView<CalculatorController> {
 
   @override
   Widget build(BuildContext context) {
+        final isDark = controller.isDarkMode.value;
+      final primary = controller.getPrimaryColor();
+      final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
+      final cardBg = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
-    final primary = colorScheme.primary;
+   // final isDark = theme.brightness == Brightness.dark;
+   // final primary = colorScheme.primary;
     final txtHigh = colorScheme.onSurface;
-    final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
-    final cardBg = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
+   // final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
+   // final cardBg = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
 
     return Scaffold(
       backgroundColor: bg,

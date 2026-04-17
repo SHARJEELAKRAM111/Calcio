@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:get/get.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:calcio/services/storage_service.dart';
@@ -31,6 +33,7 @@ class CalculatorController extends GetxController {
   void onInit() {
     super.onInit();
     isDarkMode.value = _storage.isDarkMode;
+    accentColor.value = _storage.accentColor;
     history.assignAll(_storage.getHistory());
     
     // Defer the theme application so GetMaterialApp is ready
@@ -55,6 +58,7 @@ class CalculatorController extends GetxController {
   }
 
   void updateAccentColor() {
+    _storage.saveAccentColor(accentColor.value);
     _applyTheme();
   }
 
