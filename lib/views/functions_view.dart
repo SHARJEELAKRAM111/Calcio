@@ -17,11 +17,9 @@ class FunctionsView extends GetView<CalculatorController> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final txtHigh = colorScheme.onSurface;
-    // final isDark = theme.brightness == Brightness.dark;
     final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
     final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
-    // final primary = colorScheme.primary;
-    // final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
+
 
     return Scaffold(
       backgroundColor: bg,

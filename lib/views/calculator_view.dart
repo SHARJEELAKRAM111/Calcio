@@ -18,14 +18,11 @@ class CalculatorView extends GetView<CalculatorController> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    //final isDark = theme.brightness == Brightness.dark;
 
     // Extracted colors
     final txtHigh = colorScheme.onSurface;
-    //final primary = colorScheme.primary;
     final operatorBg = isDark ? AppTheme.operatorColor : AppTheme.lightSurfaceHigh;
     final keypadSurface = isDark ? AppTheme.darkSurface : AppTheme.lightSurface;
-    //final bg = isDark ? AppTheme.darkBackground : AppTheme.lightBackground;
 
     return Scaffold(
       backgroundColor: bg,

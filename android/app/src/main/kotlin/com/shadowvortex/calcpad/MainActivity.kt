@@ -1,4 +1,4 @@
-package com.example.calcio
+package com.shadowvortex.calcpad
 
 import io.flutter.embedding.android.FlutterActivity
 

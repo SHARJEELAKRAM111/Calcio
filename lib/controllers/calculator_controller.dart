@@ -183,7 +183,7 @@ class CalculatorController extends GetxController {
       expStr = expStr.replaceAll(
         '!',
         '!',
-      ); // handled natively by parser usually
+      ); 
 
       // We will parse standard functions
       if (!isRad.value) {
